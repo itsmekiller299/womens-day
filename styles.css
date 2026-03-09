@@ -1,0 +1,448 @@
+:root {
+  --rose-deep: #b83b5e;
+  --rose-soft: #e8a0bf;
+  --gold: #d4a853;
+  --cream: #fdf8f3;
+  --charcoal: #2d2a26;
+  --mint: #7eb8a4;
+  --shadow: rgba(184, 59, 94, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  overflow-x: hidden;
+}
+
+/* Floating shapes background */
+.bg-shapes {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: float 15s ease-in-out infinite;
+}
+.shape:nth-child(1) { width: 80px; height: 80px; background: var(--rose-soft); top: 10%; left: 5%; animation-delay: 0s; }
+.shape:nth-child(2) { width: 120px; height: 120px; background: var(--gold); top: 60%; right: 10%; animation-delay: -3s; }
+.shape:nth-child(3) { width: 60px; height: 60px; background: var(--mint); bottom: 20%; left: 15%; animation-delay: -6s; }
+.shape:nth-child(4) { width: 100px; height: 100px; background: var(--rose-deep); top: 30%; right: 25%; animation-delay: -9s; opacity: 0.25; }
+.shape:nth-child(5) { width: 40px; height: 40px; background: var(--gold); bottom: 40%; right: 5%; animation-delay: -12s; }
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -30px) scale(1.05); }
+  66% { transform: translate(-15px, 20px) scale(0.95); }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Hero */
+.hero {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 600;
+  color: var(--rose-deep);
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.2s;
+}
+.hero .sub {
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-weight: 300;
+  color: var(--charcoal);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.5s;
+}
+.hero .date-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--rose-deep), var(--rose-soft));
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  box-shadow: 0 8px 24px var(--shadow);
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.8s;
+}
+
+/* Celebrate button */
+.celebrate-btn {
+  margin-top: 2.5rem;
+  padding: 1rem 2.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, var(--gold), #c4943a);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(212, 168, 83, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1s;
+  position: relative;
+  overflow: hidden;
+}
+.celebrate-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(212, 168, 83, 0.5);
+}
+.celebrate-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Quotes section */
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--rose-deep);
+  text-align: center;
+  margin: 4rem 0 2rem;
+}
+.quotes-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+.quote-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px var(--shadow);
+  border-left: 4px solid var(--rose-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-left-color 0.3s ease;
+  cursor: default;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-left-color 0.3s ease;
+}
+.quote-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.quote-card:hover {
+  transform: translateX(8px) translateY(0);
+  box-shadow: 0 12px 36px var(--shadow);
+  border-left-color: var(--rose-deep);
+}
+.quote-card .text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--charcoal);
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+.quote-card .author {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--rose-deep);
+}
+
+/* Trailblazers */
+.trailblazers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 4rem;
+}
+.trailblazer-card {
+  background: white;
+  padding: 1.75rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
+}
+.trailblazer-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.trailblazer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px var(--shadow);
+}
+.trailblazer-card .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.trailblazer-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  color: var(--rose-deep);
+  margin-bottom: 0.35rem;
+}
+.trailblazer-card .role {
+  font-size: 0.8rem;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.trailblazer-card p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--charcoal);
+}
+
+/* Ways to celebrate */
+.ways-list {
+  list-style: none;
+  margin-bottom: 4rem;
+}
+.ways-list li {
+  background: white;
+  padding: 1rem 1.25rem 1rem 3rem;
+  margin-bottom: 0.75rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px var(--shadow);
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.25s ease;
+}
+.ways-list li.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.ways-list li:hover {
+  transform: translateX(6px);
+  box-shadow: 0 6px 20px var(--shadow);
+}
+.ways-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 1rem;
+  color: var(--rose-soft);
+  font-size: 1.1rem;
+}
+
+/* Affirmations */
+.affirm-section {
+  text-align: center;
+  margin: 4rem 0;
+}
+.affirm-box {
+  background: linear-gradient(135deg, var(--rose-deep), var(--rose-soft));
+  color: white;
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  line-height: 1.5;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem auto;
+  max-width: 560px;
+  box-shadow: 0 10px 40px var(--shadow);
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.affirm-box.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+.affirm-btn {
+  padding: 0.75rem 1.75rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--rose-deep);
+  background: white;
+  border: 2px solid var(--rose-soft);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.affirm-btn:hover {
+  background: var(--rose-deep);
+  color: white;
+  border-color: var(--rose-deep);
+  transform: scale(1.05);
+}
+
+/* Interactive flowers */
+.flowers-section {
+  text-align: center;
+  margin: 4rem 0;
+}
+.flowers-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--charcoal);
+  margin-bottom: 1.5rem;
+}
+.flower-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.flower-btn {
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 2rem;
+  transition: transform 0.3s ease;
+  background: linear-gradient(145deg, #fff 0%, #f5f5f5 100%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.flower-btn:hover {
+  transform: scale(1.15) rotate(10deg);
+}
+.flower-btn:active {
+  transform: scale(0.95);
+}
+.flower-btn.bloom {
+  animation: bloom 0.6s ease;
+}
+@keyframes bloom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1.1); }
+}
+
+/* Fun facts */
+.facts-section {
+  margin: 4rem 0;
+}
+.fact-card {
+  background: linear-gradient(135deg, rgba(184, 59, 94, 0.08), rgba(212, 168, 83, 0.08));
+  padding: 2rem;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  border: 2px solid transparent;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.fact-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fact-card:hover {
+  border-color: var(--rose-soft);
+  transform: scale(1.02) translateY(0);
+  box-shadow: 0 8px 30px var(--shadow);
+}
+.fact-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: var(--rose-deep);
+  margin-bottom: 0.5rem;
+}
+.fact-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--charcoal);
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+footer .heart {
+  color: var(--rose-deep);
+  display: inline-block;
+  animation: pulse 1.5s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Confetti canvas */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Message popup */
+.message-popup {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  font-weight: 500;
+  color: var(--rose-deep);
+  z-index: 100;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.message-popup.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
